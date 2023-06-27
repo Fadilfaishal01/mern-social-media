@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import {useMemo} from 'react';
 import {useSelector} from 'react-redux';
 import {CssBaseline, ThemeProvider} from '@mui/material';
@@ -11,6 +11,8 @@ import ProfilePage from 'scenes/profilePage';
 function App() {
   const mode = useSelector(state => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+  const isAuth = Boolean(useSelector((state) => state.token));
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -18,8 +20,8 @@ function App() {
           <CssBaseline />       
           <Routes>
             <Route element={<LoginPage />} path='/' />
-            <Route element={<HomePage />} exact path='/home' />
-            <Route element={<ProfilePage />} exact path='/profile/:userId' />
+            <Route element={ isAuth ? <HomePage /> : <Navigate to="/" />} exact path='/home' />
+            <Route element={ isAuth ? <ProfilePage /> : <Navigate to="/" />} exact path='/profile/:userId' />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

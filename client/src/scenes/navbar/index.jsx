@@ -40,7 +40,7 @@ const Navbar = () => {
    const primaryLight = theme.palette.primary.light;
    const alt = theme.palette.background.alt;
 
-   const fullName = user ? `Halo, ${user.fullName} ${user.lastName}` : 'Halo, Admin';
+   const fullName = user ? `Halo, ${user.firstName} ${user.lastName}` : 'Halo, Admin';
 
    return (
       <FlexBetween padding="1rem 6%" backgroundColor={alt}>
@@ -146,12 +146,12 @@ const Navbar = () => {
                         value={fullName}
                         sx={{
                            backgroundColor: neutralLight,
-                           width: "150px",
+                           width: "200px",
                            borderRadius: "0.25rem",
                            p: "0.25rem 1rem",
                            "& .MuiSvgIcon-root": {
                               pr: "0.25rem",
-                              width: "3rem"
+                              width: "5rem"
                            },
                            "& .MuiSelect-select:focus": {
                               backgroundColor: neutralLight
