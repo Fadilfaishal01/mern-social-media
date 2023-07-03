@@ -32,6 +32,7 @@ export const register = async (req, res) => {
       const saveUser = await newUser.save();
       res.status(201).json(saveUser);
    } catch (err) {
+      console.log("Error : register");
       res.status(500).json({error: err.message});
    }
 };
@@ -50,6 +51,7 @@ export const login = async (req, res) => {
       delete dataUser.password;
       res.status(200).json({token, dataUser});
    } catch (err) {
+      console.log("Error : login");
       res.status(500).json({error: err.message});
    }
 }

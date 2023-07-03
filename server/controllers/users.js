@@ -14,18 +14,21 @@ export const getUserFriends = async (req, res) => {
    try {
       const { id } = req.params;
       const user = await User.findById(id);
-
+      let formattedFriends = [];
+      
       const friends = await Promise.all(
          user.friends.map((id) => User.findById(id))
       )
 
-      const formattedFriends = friends.map(
-         ({_id, firstName, lastName, occupation, location, picturePath}) => {
-            return {_id, firstName, lastName, occupation, location, picturePath};
-         }
-      )
+      if (friends.length > 0) {
+         formattedFriends = friends.map(
+            ({_id, firstName, lastName, occupation, location, picturePath}) => {
+               return {_id, firstName, lastName, occupation, location, picturePath};
+            }
+         )  
+      }
 
-      req.status(200).json(formattedFriends);
+      res.status(200).json(formattedFriends);
    } catch (err) {
       res.status(500).json({error: err.message})
    }
@@ -58,7 +61,7 @@ export const addRemoveFriend = async (req, res) => {
          }
       )
 
-      req.status(200).json(formattedFriends);
+      res.status(200).json(formattedFriends);
    } catch (err) {
       res.status(500).json({error: err.message})
    }
